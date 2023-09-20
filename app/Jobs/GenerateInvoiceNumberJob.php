@@ -23,7 +23,7 @@ class GenerateInvoiceNumberJob implements ShouldQueue
     public function handle(): void
     {
         $this->invoice->serial_number = (Invoice::where('serial_series', $this->invoice->serial_series)->max('serial_number') ?? 0) + 1;
-        $this->invoice->serial = $this->invoice->serial_series . '-' . $this->invoice->serial_number;
+        $this->invoice->serial = $this->invoice->serial_series . '-' . str_pad($this->invoice->serial_number, 5, '0', STR_PAD_LEFT);
         $this->invoice->save();
     }
 }
