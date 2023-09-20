@@ -32,12 +32,7 @@ class InvoiceController extends Controller
 
     public function store(StoreInvoiceRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-
-        $data['serial_number'] = (Invoice::where('serial_series', $data['serial_series'])->max('serial_number') ?? 0) + 1;
-        $data['serial'] = $data['serial_series'] . '-' . $data['serial_number'];
-
-        Invoice::create($data);
+        Invoice::create($request->validated());
 
         return redirect()->route('invoice.index');
     }
