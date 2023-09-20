@@ -13,9 +13,9 @@ return new class extends Migration {
             $table->foreignIdFor(User::class)->constrained();
             $table->date('due_date');
             $table->integer('amount');
-            $table->string('serial');
+            $table->string('serial')->nullable();
             $table->string('serial_series');
-            $table->string('serial_number');
+            $table->string('serial_number')->nullable();
             $table->timestamps();
         });
     }

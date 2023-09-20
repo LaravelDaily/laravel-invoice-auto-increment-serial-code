@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Jobs\GenerateInvoiceNumberJob;
 use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -32,12 +33,9 @@ class InvoiceController extends Controller
 
     public function store(StoreInvoiceRequest $request): RedirectResponse
     {
-        $data = $request->validated();
+        $invoice = Invoice::create($request->validated());
 
-        $data['serial_number'] = (Invoice::where('serial_series', $data['serial_series'])->max('serial_number') ?? 0) + 1;
-        $data['serial'] = $data['serial_series'] . '-' . $data['serial_number'];
-
-        Invoice::create($data);
+        dispatch(new GenerateInvoiceNumberJob($invoice->id));
 
         return redirect()->route('invoice.index');
     }
