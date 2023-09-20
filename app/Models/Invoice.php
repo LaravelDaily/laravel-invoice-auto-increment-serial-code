@@ -17,16 +17,6 @@ class Invoice extends Model
         'serial_series',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::creating(static function (Invoice $invoice) {
-            $invoice->serial_number = (Invoice::where('serial_series', $invoice->serial_series)->max('serial_number') ?? 0) + 1;
-            $invoice->serial = $invoice->serial_series . '-' . $invoice->serial_number;
-        });
-    }
-
     protected function amount(): Attribute
     {
         return Attribute::make(
