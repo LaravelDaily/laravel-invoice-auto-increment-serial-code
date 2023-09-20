@@ -17,6 +17,8 @@ class GenerateInvoiceNumberJob implements ShouldQueue
 
     public function __construct(int $invoiceID)
     {
+        $this->onQueue('invoiceNumbersQueue');
+
         $this->invoice = Invoice::findOrFail($invoiceID);
     }
 
