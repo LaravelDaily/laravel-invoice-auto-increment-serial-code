@@ -33,9 +33,7 @@ class InvoiceController extends Controller
 
     public function store(StoreInvoiceRequest $request): RedirectResponse
     {
-        $invoice = Invoice::create($request->validated());
-
-        dispatch(new GenerateInvoiceNumberJob($invoice->id));
+        Invoice::create($request->validated());
 
         return redirect()->route('invoice.index');
     }
