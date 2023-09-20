@@ -30,6 +30,21 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="serial_series" class="block text-gray-700 text-sm font-bold mb-2">Invoice Series</label>
+                            <select id="serial_series" name="serial_series"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                @foreach($invoiceSeries as $seriesCode)
+                                    <option value="{{ $seriesCode }}" @selected(old('serial_series') == $seriesCode)>{{ $seriesCode }}</option>
+                                @endforeach
+                            </select>
+                            @error('serial_series')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
                             <label for="due_date" class="block text-gray-700 text-sm font-bold mb-2">Due Date</label>
                             <input type="date"
                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

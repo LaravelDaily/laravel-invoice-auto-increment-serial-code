@@ -1,5 +1,10 @@
 <?php
 
 return [
-    'invoiceSeries' => 'ABC',
+    'availableInvoiceSeries' => [
+        'ABC',
+        'DAF',
+        'GHI',
+        'UKS'
+    ],
 ];

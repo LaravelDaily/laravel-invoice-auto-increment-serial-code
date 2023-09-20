@@ -22,9 +22,11 @@ class InvoiceController extends Controller
     public function create()
     {
         $users = User::pluck('name', 'id');
+        $invoiceSeries = config('invoiceSettings.availableInvoiceSeries');
 
         return view('invoices.create', [
             'users' => $users,
+            'invoiceSeries' => $invoiceSeries,
         ]);
     }
 
@@ -32,7 +34,6 @@ class InvoiceController extends Controller
     {
         $data = $request->validated();
 
-        $data['serial_series'] = config('invoiceSettings.invoiceSeries');
         $data['serial_number'] = (Invoice::where('serial_series', $data['serial_series'])->max('serial_number') ?? 0) + 1;
         $data['serial'] = $data['serial_series'] . '-' . $data['serial_number'];
 
