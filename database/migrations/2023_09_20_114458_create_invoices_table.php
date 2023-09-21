@@ -15,8 +15,10 @@ return new class extends Migration {
             $table->integer('amount');
             $table->string('serial')->nullable();
             $table->string('serial_series');
-            $table->string('serial_number')->nullable();
+            $table->integer('serial_number')->nullable();
             $table->timestamps();
+
+            $table->unique(['serial_series', 'serial_number']);
         });
     }
 
