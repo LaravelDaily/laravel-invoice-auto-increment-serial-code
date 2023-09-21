@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->integer('amount');
             $table->string('serial');
             $table->string('serial_series');
-            $table->string('serial_number');
+            $table->integer('serial_number');
             $table->timestamps();
         });
     }
